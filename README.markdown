@@ -24,7 +24,7 @@ This module will install the freetds packages and manage odbcinst.ini file to re
 
 Install the FreeTDS driver and register it
 
-    include 'freetds'
+    include freetds
 
 Manage a dsn entry for for database.myorganisation.com
 
