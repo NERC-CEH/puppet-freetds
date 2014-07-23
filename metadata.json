@@ -1,0 +1,16 @@
+{
+  "name": "nerc-ceh-freetds",
+  "version": "1.0.0",
+  "author": "Christopher Johnson",
+  "license": "GPLv2",
+  "summary": "Puppet module for managing freetds",
+  "source": "git://github.com/NERC-CEH/puppet-freetds.git",
+  "tags": ["SQL Server", "Database", "FreeTDS"],
+  "operatingsystem_support": [{
+    "operatingsystem": "Ubuntu",
+    "operatingsystemrelease": [ "12.04", "14.04" ]
+  }],
+  "dependencies": [
+    { "name": "puppetlabs/inifile", "version_requirement": ">= 1.1.0" }
+  ]
+}
