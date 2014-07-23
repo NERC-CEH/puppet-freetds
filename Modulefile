@@ -1,0 +1,1 @@
+dependency 'puppetlabs/inifile', '1.1.0'

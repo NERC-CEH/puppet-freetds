@@ -1,0 +1,7 @@
+fixtures:
+  repositories:
+    inifile: 
+      repo: "https://github.com/puppetlabs/puppetlabs-inifile.git"
+      ref: "1.1.0"
+  symlinks:
+    freetds: "#{source_dir}"
