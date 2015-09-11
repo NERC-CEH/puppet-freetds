@@ -1,10 +1,12 @@
 {
-  "name": "nercceh-freetds",
+  "name": "ceh-freetds",
   "version": "1.0.0",
-  "author": "Christopher Johnson",
-  "license": "GPLv2",
+  "author": "Centre for Ecology & Hydrology",
+  "license": "GPL-2.0",
   "summary": "Puppet module for managing freetds",
   "source": "git://github.com/NERC-CEH/puppet-freetds.git",
+  "project_page": "https://forge.puppetlabs.com/ceh/freetds",
+  "issues_url": "https://github.com/NERC-CEH/puppet-freetds/issues",
   "tags": ["SQL Server", "Database", "FreeTDS"],
   "operatingsystem_support": [{
     "operatingsystem": "Ubuntu",
