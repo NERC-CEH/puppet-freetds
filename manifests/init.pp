@@ -24,11 +24,11 @@ class freetds (
   $global_tds_version = '7.0',
   $global_port        = 1433
 ) {
-  $tds_packages = $freetds::params::tds_packages
-  $odbc_packages = $freetds::params::odbc_packages
-  $odbc_lib = $freetds::params::odbc_lib
-  $odbc_lib64 = $freetds::params::odbc_lib64
-  $freetds_conf = $freetds::params::freetds_conf
+  $tds_packages = $::freetds::params::tds_packages
+  $odbc_packages = $::freetds::params::odbc_packages
+  $odbc_lib = $::freetds::params::odbc_lib
+  $odbc_lib64 = $::freetds::params::odbc_lib64
+  $freetds_conf = $::freetds::params::freetds_conf
 
   if $manage_unixodbc {
     package { $odbc_packages:
