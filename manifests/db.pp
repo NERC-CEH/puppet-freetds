@@ -19,8 +19,8 @@
 define freetds::db (
   $host,
   $dsn         = $title,
-  $port        = '',
-  $tds_version = '',
+  $port        = undef,
+  $tds_version = undef,
   $manage_odbc = $freetds::manage_unixodbc
 ){
   if $manage_odbc {
