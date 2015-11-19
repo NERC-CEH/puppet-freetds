@@ -22,7 +22,10 @@ define freetds::db (
   $port        = undef,
   $tds_version = undef,
   $manage_odbc = $freetds::manage_unixodbc
-) inherits freetds::params {
+) {
+
+  $freetds_conf = $::freetds::params::freetds_conf
+  
   if $manage_odbc {
     # Define connections to database
     ini_setting { "ODBC Driver to ${dsn}" :
