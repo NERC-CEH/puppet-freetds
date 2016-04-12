@@ -86,7 +86,7 @@ class freetds (
     section => 'global',
     setting => 'tds version',
     value   => $global_tds_version,
-    before  => Package['tds'],
+    before  => Package['tds],
   }
 
   File['/etc/freetds'] -> Ini_setting<| path == $freetds_conf |>
