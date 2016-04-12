@@ -25,7 +25,7 @@ describe 'freetds', :type => :class do
     it { should contain_package('unixODBC-devel') }
   end
 
-  context 'when odbc is not managed' do
+  describe 'when odbc is not managed' do
     let(:params) { {
       :manage_unixodbc => false
     } }
@@ -34,13 +34,9 @@ describe 'freetds', :type => :class do
     it { should_not contain_package('unixodbc-dev') }
   end
 
-
-  context 'when freetds version is specified on Debian' do
+  describe 'when freetds version is specified' do
     let(:params) { {
       :freetds_version => '2'
-    } }
-    let(:facts) { {
-      :osfamily => 'Debian'
     } }
     
     it { should contain_package('freetds-dev').with_ensure('2') }
@@ -48,26 +44,7 @@ describe 'freetds', :type => :class do
     it { should contain_package('tdsodbc').with_ensure('2') }
   end
 
-
-  context 'when freetds version is specified on RedHat' do
-    let(:params) { {
-      :freetds_version => '2'
-    } }
-    let(:facts) { {
-      :osfamily => 'RedHat'
-    } }
-
-    it { should contain_package('freetds-devel').with_ensure('2') }
-    it { should contain_package('freetds').with_ensure('2') }
-  end
-
-
-
-  context 'when applied should manage /etc/odbcinst.ini on Debian' do
-    let(:facts) { {
-      :osfamily => 'Debian'
-    } }
-
+  describe 'when applied should manage /etc/odbcinst.ini' do
     it { should contain_ini_setting('FreeTDS Description').with(
       :path    => '/etc/odbcinst.ini',
       :section => 'FreeTDS',
@@ -90,41 +67,9 @@ describe 'freetds', :type => :class do
     ).with_ensure('present')}
   end
 
-  context 'when applied should manage /etc/odbcinst.ini on RedHat' do
-    let(:facts) { {
-      :osfamily => 'RedHat'
-    } }
-
-    it { should contain_ini_setting('FreeTDS Description').with(
-      :path    => '/etc/odbcinst.ini',
-      :section => 'FreeTDS',
-      :setting => 'Description',
-      :value   => 'FreeTDS Driver'
-    ).with_ensure('present')}
-
-    it { should contain_ini_setting('FreeTDS Driver').with(
-      :path    => '/etc/odbcinst.ini',
-      :section => 'FreeTDS',
-      :setting => 'Driver',
-      :value   => '/usr/lib64/libtdsodbc.so'
-    ).with_ensure('present')}
-
-    it { should contain_ini_setting('FreeTDS Setup').with(
-      :path    => '/etc/odbcinst.ini',
-      :section => 'FreeTDS',
-      :setting => 'Setup',
-      :value   => '/usr/lib64/libtdsS.so'
-    ).with_ensure('present')}
-  end
-
-
-
-  context 'when applied should manage the global port on Debian' do
+  describe 'when applied should manage the global port' do
     let(:params) { {
       :global_port => '1337'
-    } }
-    let(:facts) { {
-      :osfamily => 'Debian'
     } }
 
     it { should contain_ini_setting('FreeTDS Global Port').with(
@@ -135,30 +80,10 @@ describe 'freetds', :type => :class do
      ).with_ensure('present')}
   end
 
-  context 'when applied should manage the global port on RedHat' do
-    let(:params) { {
-      :global_port => '1337'
-    } }
-    let(:facts) { {
-      :osfamily => 'RedHat'
-    } }
-
-    it { should contain_ini_setting('FreeTDS Global Port').with(
-      :path    => '/etc/freetds.conf',
-      :section => 'global',
-      :setting => 'port',
-      :value   => '1337'
-     ).with_ensure('present')}
-  end
-
-
-  context 'when applied should mange the global tds version on Debian' do
+  describe 'when applied should mange the global tds version' do
     let(:params) { {
       :global_tds_version => '18'
-    } }
-    let(:facts) { {
-      :osfamily => 'Debian'
-    } }
+    } }    
    
     it { should contain_ini_setting('FreeTDS Global tds version').with(
       :path    => '/etc/freetds/freetds.conf',
@@ -168,27 +93,10 @@ describe 'freetds', :type => :class do
     ).with_ensure('present')}
   end
 
-  context 'when applied should mange the global tds version on RedHat' do
-    let(:params) { {
-      :global_tds_version => '18'
-    } }
-    let(:facts) { {
-      :osfamily => 'RedHat'
-    } }
-
-    it { should contain_ini_setting('FreeTDS Global tds version').with(
-      :path    => '/etc/freetds.conf',
-      :section => 'global',
-      :setting => 'tds version',
-      :value   => '18'
-    ).with_ensure('present')}
-  end
-
-
-  describe 'the freetds conf should be managed before freetds is installed' do
+  describe 'the freetds conf should be managed before freetds is install' do
     it { should contain_ini_setting('FreeTDS Global tds version')
-                .that_comes_before('Package[tds]')}
+                .that_comes_before('Package[freetds-bin]')}
     it { should contain_ini_setting('FreeTDS Global Port')
-                .that_comes_before('Package[tds]')}
+                .that_comes_before('Package[freetds-bin]')}
   end
 end
