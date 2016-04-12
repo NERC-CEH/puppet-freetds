@@ -60,7 +60,11 @@ describe 'freetds', :type => :class do
   end
 
 
-  describe 'when applied should manage /etc/odbcinst.ini' do
+  describe 'when applied should manage /etc/odbcinst.ini on Debian' do
+    let(:facts) { {
+      :osfamily => 'Debian'
+    } }
+
     it { should contain_ini_setting('FreeTDS Description').with(
       :path    => '/etc/odbcinst.ini',
       :section => 'FreeTDS',
@@ -82,6 +86,34 @@ describe 'freetds', :type => :class do
       :value   => '/usr/lib/x86_64-linux-gnu/odbc/libtdsS.so'
     ).with_ensure('present')}
   end
+
+  describe 'when applied should manage /etc/odbcinst.ini on RedHat' do
+    let(:facts) { {
+      :osfamily => 'RedHat'
+    } }
+
+    it { should contain_ini_setting('FreeTDS Description').with(
+      :path    => '/etc/odbcinst.ini',
+      :section => 'FreeTDS',
+      :setting => 'Description',
+      :value   => 'FreeTDS Driver'
+    ).with_ensure('present')}
+
+    it { should contain_ini_setting('FreeTDS Driver').with(
+      :path    => '/etc/odbcinst.ini',
+      :section => 'FreeTDS',
+      :setting => 'Driver',
+      :value   => '/usr/lib64/libtdsodbc.so'
+    ).with_ensure('present')}
+
+    it { should contain_ini_setting('FreeTDS Setup').with(
+      :path    => '/etc/odbcinst.ini',
+      :section => 'FreeTDS',
+      :setting => 'Setup',
+      :value   => '/usr/lib64/libtdsS.so'
+    ).with_ensure('present')}
+  end
+
 
   describe 'when applied should manage the global port on Debian' do
     let(:params) { {
