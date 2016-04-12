@@ -26,14 +26,12 @@ class freetds (
 ) inherits freetds::params {
 
   if $manage_unixodbc {
-    package { 'odbc':
-      name   => $odbc_packages,
+    package { $odbc_packages:
       ensure => $unixodbc_version,
     }
   }
 
-  package { 'tds':
-    name   => $tds_packages,
+  package { $tds_packages:
     ensure => $freetds_version,
   }
 
@@ -79,14 +77,14 @@ class freetds (
     section => 'global',
     setting => 'port',
     value   => $global_port,
-    before  => Package['tds'],
+    before  => Package[$tds_packages],
   }
   ini_setting { 'FreeTDS Global tds version' :
     path    => $freetds_conf,
     section => 'global',
     setting => 'tds version',
     value   => $global_tds_version,
-    before  => Package['tds],
+    before  => Package[$tds_packages],
   }
 
   File['/etc/freetds'] -> Ini_setting<| path == $freetds_conf |>
