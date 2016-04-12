@@ -69,7 +69,7 @@ describe 'freetds', :type => :class do
       :path    => '/etc/odbcinst.ini',
       :section => 'FreeTDS',
       :setting => 'Description',
-      :value   => 'FreeTDS Driver'
+      :value   => 'ODBC for TDB'
     ).with_ensure('present')}
 
     it { should contain_ini_setting('FreeTDS Driver').with(
@@ -96,7 +96,7 @@ describe 'freetds', :type => :class do
       :path    => '/etc/odbcinst.ini',
       :section => 'FreeTDS',
       :setting => 'Description',
-      :value   => 'FreeTDS Driver'
+      :value   => 'ODBC for TDB'
     ).with_ensure('present')}
 
     it { should contain_ini_setting('FreeTDS Driver').with(
