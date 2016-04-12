@@ -25,13 +25,28 @@ describe 'freetds', :type => :class do
     it { should contain_package('unixODBC-devel') }
   end
 
-  describe 'when odbc is not managed' do
+  describe 'when odbc is not managed on Debian' do
     let(:params) { {
       :manage_unixodbc => false
+    } }
+    let(:facts) { {
+      :osfamily => 'Debian'
     } }
       
     it { should_not contain_package('unixodbc') }
     it { should_not contain_package('unixodbc-dev') }
+  end
+
+  describe 'when odbc is not managed on RedHat' do
+    let(:params) { {
+      :manage_unixodbc => false
+    } }
+    let(:facts) { {
+      :osfamily => 'RedHat'
+    } }
+
+    it { should_not contain_package('unixODBC') }
+    it { should_not contain_package('unixODBC-devel') }
   end
 
   describe 'when freetds version is specified on Debian' do
