@@ -6,7 +6,7 @@ describe 'freetds', :type => :class do
       :manage_unixodbc => true
     } }
     let(:facts) { {
-      ::osfamily => 'Debian'
+      :osfamily => 'Debian'
     } }
       
     it { should contain_package('unixodbc') }
@@ -18,7 +18,7 @@ describe 'freetds', :type => :class do
       :manage_unixodbc => true
     } }
     let(:facts) { {
-      ::osfamily => 'RedHat'
+      :osfamily => 'RedHat'
     } }
 
     it { should contain_package('unixODBC') }
