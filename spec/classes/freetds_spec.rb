@@ -89,14 +89,14 @@ describe 'freetds', :type => :class do
     it { should contain_ini_setting('FreeTDS Driver64').with(
       :path    => '/etc/odbcinst.ini',
       :section => 'FreeTDS',
-      :setting => 'Driver',
+      :setting => 'Driver64',
       :value   => '/usr/lib/x86_64-linux-gnu/odbc/libtdsodbc.so'
     ).with_ensure('present')}
 
     it { should contain_ini_setting('FreeTDS Setup64').with(
       :path    => '/etc/odbcinst.ini',
       :section => 'FreeTDS',
-      :setting => 'Setup',
+      :setting => 'Setup64',
       :value   => '/usr/lib/x86_64-linux-gnu/odbc/libtdsS.so'
     ).with_ensure('present')}
   end
@@ -130,14 +130,14 @@ describe 'freetds', :type => :class do
     it { should contain_ini_setting('FreeTDS Driver64').with(
       :path    => '/etc/odbcinst.ini',
       :section => 'FreeTDS',
-      :setting => 'Driver',
+      :setting => 'Driver64',
       :value   => '/usr/lib64/libtdsodbc.so'
     ).with_ensure('present')}
 
     it { should contain_ini_setting('FreeTDS Setup64').with(
       :path    => '/etc/odbcinst.ini',
       :section => 'FreeTDS',
-      :setting => 'Setup',
+      :setting => 'Setup64',
       :value   => '/usr/lib64/libtdsS.so'
     ).with_ensure('present')}
   end
