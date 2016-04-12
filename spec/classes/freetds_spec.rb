@@ -93,10 +93,25 @@ describe 'freetds', :type => :class do
     ).with_ensure('present')}
   end
 
-  describe 'the freetds conf should be managed before freetds is install' do
+  describe 'the freetds conf should be managed before freetds is installed on Debian' do
+    let(:facts) { {
+      :osfamily => 'Debian'
+    } }
+
     it { should contain_ini_setting('FreeTDS Global tds version')
                 .that_comes_before('Package[freetds-bin]')}
     it { should contain_ini_setting('FreeTDS Global Port')
                 .that_comes_before('Package[freetds-bin]')}
+  end
+
+  describe 'the freetds conf should be managed before freetds is installed on RedHat' do
+    let(:facts) { {
+      :osfamily => 'RedHat'
+    } }
+
+    it { should contain_ini_setting('FreeTDS Global tds version')
+                .that_comes_before('Package[freetds]')}
+    it { should contain_ini_setting('FreeTDS Global Port')
+                .that_comes_before('Package[freetds]')}
   end
 end
