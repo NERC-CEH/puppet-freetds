@@ -37,30 +37,35 @@ class freetds (
 
   # Manage the /etc/odbcinst.ini
   ini_setting { 'FreeTDS Description' :
+    ensure  => present,
     path    => '/etc/odbcinst.ini',
     section => 'FreeTDS',
     setting => 'Description',
     value   => 'ODBC for TDB',
   }
   ini_setting { 'FreeTDS Driver' :
+    ensure  => present,
     path    => '/etc/odbcinst.ini',
     section => 'FreeTDS',
     setting => 'Driver',
     value   => "${odbc_lib}/libtdsodbc.so",
   }
   ini_setting { 'FreeTDS Setup' :
+    ensure  => present,
     path    => '/etc/odbcinst.ini',
     section => 'FreeTDS',
     setting => 'Setup',
     value   => "${odbc_lib}/libtdsS.so",
   }
   ini_setting { 'FreeTDS Driver64' :
+    ensure  => present,
     path    => '/etc/odbcinst.ini',
     section => 'FreeTDS',
     setting => 'Driver64',
     value   => "${odbc_lib64}/libtdsodbc.so",
   }
   ini_setting { 'FreeTDS Setup64' :
+    ensure  => present,
     path    => '/etc/odbcinst.ini',
     section => 'FreeTDS',
     setting => 'Setup64',
@@ -73,6 +78,7 @@ class freetds (
 
   # Set some defaults in the freetds configuration file
   ini_setting { 'FreeTDS Global Port' :
+    ensure  => present,
     path    => $freetds_conf,
     section => 'global',
     setting => 'port',
@@ -80,6 +86,7 @@ class freetds (
     before  => Package[$tds_packages],
   }
   ini_setting { 'FreeTDS Global tds version' :
+    ensure  => present,
     path    => $freetds_conf,
     section => 'global',
     setting => 'tds version',
