@@ -1,13 +1,28 @@
 require 'spec_helper'
 
 describe 'freetds', :type => :class do   
-  describe 'when odbc is managed' do
+  context 'when odbc is managed on Debian' do
     let(:params) { {
       :manage_unixodbc => true
+    } }
+    let(:facts) { {
+      ::osfamily => 'Debian'
     } }
       
     it { should contain_package('unixodbc') }
     it { should contain_package('unixodbc-dev') }
+  end
+
+  context 'when odbc is managed on RedHat' do
+    let(:params) { {
+      :manage_unixodbc => true
+    } }
+    let(:facts) { {
+      ::osfamily => 'RedHat'
+    } }
+
+    it { should contain_package('unixODBC') }
+    it { should contain_package('unixODBC-devel') }
   end
 
   describe 'when odbc is not managed' do
