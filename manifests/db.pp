@@ -22,7 +22,10 @@ define freetds::db (
   $port        = undef,
   $tds_version = undef,
   $manage_odbc = $freetds::manage_unixodbc
-){
+) {
+
+  $freetds_conf = $::freetds::params::freetds_conf
+  
   if $manage_odbc {
     # Define connections to database
     ini_setting { "ODBC Driver to ${dsn}" :
@@ -44,7 +47,7 @@ define freetds::db (
 
   ini_setting { "FreeTDS connection to ${dsn} database" :
     ensure  => present,
-    path    => '/etc/freetds/freetds.conf',
+    path    => $freetds_conf,
     section => $dsn,
     setting => 'host',
     value   => $host,
@@ -53,7 +56,7 @@ define freetds::db (
   if $port {
     ini_setting { "FreeTDS port to ${dsn} database" :
       ensure  => present,
-      path    => '/etc/freetds/freetds.conf',
+      path    => $freetds_conf,
       section => $dsn,
       setting => 'port',
       value   => $port,
@@ -63,7 +66,7 @@ define freetds::db (
   if $tds_version {
     ini_setting { "FreeTDS version to ${dsn} database" :
       ensure  => present,
-      path    => '/etc/freetds/freetds.conf',
+      path    => $freetds_conf,
       section => $dsn,
       setting => 'tds version',
       value   => $tds_version,

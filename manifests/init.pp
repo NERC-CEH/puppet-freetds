@@ -23,16 +23,15 @@ class freetds (
   $freetds_version    = installed,
   $global_tds_version = '7.0',
   $global_port        = 1433
-) {
-  $tds_packages = ['freetds-dev', 'freetds-bin', 'tdsodbc']
+) inherits freetds::params {
 
   if $manage_unixodbc {
-    package { ['unixodbc', 'unixodbc-dev'] :
+    package { $odbc_packages:
       ensure => $unixodbc_version,
     }
   }
 
-  package { $tds_packages :
+  package { $tds_packages:
     ensure => $freetds_version,
   }
 
@@ -42,47 +41,58 @@ class freetds (
     path    => '/etc/odbcinst.ini',
     section => 'FreeTDS',
     setting => 'Description',
-    value   => 'FreeTDS Driver',
+    value   => 'ODBC for TDB',
   }
-
   ini_setting { 'FreeTDS Driver' :
     ensure  => present,
     path    => '/etc/odbcinst.ini',
     section => 'FreeTDS',
     setting => 'Driver',
-    value   => '/usr/lib/x86_64-linux-gnu/odbc/libtdsodbc.so',
+    value   => "${odbc_lib}/libtdsodbc.so",
   }
-
   ini_setting { 'FreeTDS Setup' :
     ensure  => present,
     path    => '/etc/odbcinst.ini',
     section => 'FreeTDS',
     setting => 'Setup',
-    value   => '/usr/lib/x86_64-linux-gnu/odbc/libtdsS.so',
+    value   => "${odbc_lib}/libtdsS.so",
+  }
+  ini_setting { 'FreeTDS Driver64' :
+    ensure  => present,
+    path    => '/etc/odbcinst.ini',
+    section => 'FreeTDS',
+    setting => 'Driver64',
+    value   => "${odbc_lib64}/libtdsodbc.so",
+  }
+  ini_setting { 'FreeTDS Setup64' :
+    ensure  => present,
+    path    => '/etc/odbcinst.ini',
+    section => 'FreeTDS',
+    setting => 'Setup64',
+    value   => "${odbc_lib64}/libtdsS.so",
   }
 
-  # Set some defaults in the freetds configuration file
   file { '/etc/freetds' :
     ensure => directory,
   }
 
+  # Set some defaults in the freetds configuration file
   ini_setting { 'FreeTDS Global Port' :
     ensure  => present,
-    path    => '/etc/freetds/freetds.conf',
+    path    => $freetds_conf,
     section => 'global',
     setting => 'port',
     value   => $global_port,
     before  => Package[$tds_packages],
   }
-
   ini_setting { 'FreeTDS Global tds version' :
     ensure  => present,
-    path    => '/etc/freetds/freetds.conf',
+    path    => $freetds_conf,
     section => 'global',
     setting => 'tds version',
     value   => $global_tds_version,
     before  => Package[$tds_packages],
   }
 
-  File['/etc/freetds'] -> Ini_setting<| path == '/etc/freetds/freetds.conf' |>
+  File['/etc/freetds'] -> Ini_setting<| path == $freetds_conf |>
 }
