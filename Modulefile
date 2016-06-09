@@ -1,5 +1,5 @@
 name 'ceh-freetds'
-version '1.0.0'
+version '1.1.0'
 source 'git://github.com/NERC-CEH/puppet-freetds.git'
 author 'entre for Ecology & Hydrology'
 license 'GPL-2.0"'
